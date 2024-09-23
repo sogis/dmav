@@ -17,3 +17,5 @@ java -jar /Users/stefan/apps/ilivalidator-1.14.3/ilivalidator-1.14.3.jar DMAV_me
 ```
 java -jar /Users/stefan/apps/SaxonHE12-5J/saxon-he-12.5.jar -s:/Users/stefan/Downloads/DMAVTYM_Alles_V1_0.xtf -xsl:split.xsl -o:DMAV_logging.xtf
 ```
+
+**Problematik Namespaces:** Die sind ja beliebig (?). Falls dem so ist, müsste man konsequenterweise nur über den local-name gehen, falls das funktioniert mit den match und apply-template.
