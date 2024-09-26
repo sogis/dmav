@@ -1,0 +1,44 @@
+plugins {
+    id 'application'
+}
+
+sourceCompatibility = 11
+targetCompatibility = 11
+
+compileJava {
+    options.compilerArgs.addAll(['--release', '11'])
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation libs.junit.jupiter
+
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    implementation libs.guava
+    implementation 'info.picocli:picocli:4.7.6'
+    implementation 'info.picocli:picocli-codegen:4.7.6'
+    annotationProcessor 'info.picocli:picocli-codegen:4.7.6'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}
+
+application {
+    mainClass = 'ch.so.agi.dmav.App'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+run {
+    args = ["--help"]
+    //args = ["merge"]
+}
