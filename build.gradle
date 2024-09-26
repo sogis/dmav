@@ -39,6 +39,6 @@ tasks.named('test') {
 }
 
 run {
-    args = ["--help"]
-    //args = ["merge"]
+    //args = ["--help"]
+    args = ["merge"]
 }

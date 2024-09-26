@@ -13,11 +13,18 @@ public class Merger {
         try {
             files = ConfigParser.read(configFile);
             
-            // substituieren
+            for (Map.Entry<String, String> entry : files.entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue();
+                String newValue = value.replace("${fosnr}", fosnr);
+                files.put(key, newValue);
+            }
         } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
+        
+        System.out.println(files);
         
         
         return true;
