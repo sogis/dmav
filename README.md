@@ -5,7 +5,7 @@ Werkzeugkasten für das Handling mit DMAV-Transferdateien:
 - merge: Erzeugt aus mehreren Transferdateien (eins pro Datenmodell) eine einzelne Transferdatei
 - split: Trennt eine DMAV-Transferdatei in mehrere auf (eine pro Datenmodell)
 
-Snapshot-Versionen: https://s01.oss.sonatype.org/content/repositories/snapshots/io/github/sogis/dmav/ -> X.Y.Z-SNAPSHOT -> dmav-xxxxx-all.jar
+Snapshot-Versionen: https://s01.oss.sonatype.org/content/repositories/snapshots/io/github/sogis/dmav/ -> X.Y.Z-SNAPSHOT -> dmav-X.Y.Z-Datum.Uhrzeit-all.jar
 
 Release-Versionen: ...
 
