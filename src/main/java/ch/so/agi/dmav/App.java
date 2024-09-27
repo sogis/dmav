@@ -53,11 +53,11 @@ public class App implements Callable<Integer> {
     @Command(name = "split", description = "Split files based on input and options")
     static class SplitCommand implements Callable<Integer> {
 
-        @Option(names = "--fosnr", description = "The fos number of the municipality (FOSNR)", required = true)
-        private String fosnr;
-
         @Option(names = "--input", description = "Input file to split", required = true)
         private Path inputFile;
+
+        @Option(names = "--fosnr", description = "The fos number of the municipality (FOSNR)", required = true)
+        private String fosnr;
 
         @Option(names = "--out", description = "Output directory path", required = true)
         private Path outputDir;
