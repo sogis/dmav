@@ -1,6 +1,12 @@
 plugins {
     id 'application'
+    id 'maven-publish'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
+
+group = 'io.github.sogis'
+
+version '0.0.1'+System.getProperty('release','-SNAPSHOT')
 
 sourceCompatibility = 11
 targetCompatibility = 11
@@ -42,7 +48,26 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
+/*
+tasks.named('shadowJar', com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar) {
+   archiveBaseName.set('shadow')
+   archiveClassifier.set('')
+   archiveVersion.set('')
+}
+*/
+
 run {
     //args = ["--help"]
     args = ["merge", "--config=myconfigAAAAA.ini", "--fosnr=449", "--out=/Users/stefan/tmp"]
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    archiveClassifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+javadoc.failOnError = false
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    archiveClassifier = 'javadoc'
+    from javadoc.destinationDir
 }
