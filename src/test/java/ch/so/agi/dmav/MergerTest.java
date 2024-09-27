@@ -33,7 +33,7 @@ public class MergerTest {
     }
 
     @Test
-    public void mergeLocalFilesOk(@TempDir Path tempDir) throws IOException {        
+    public void mergeLocalFilesOk(@TempDir Path tempDir) throws IOException {
         // Run test
         Merger merger = new Merger();
         boolean ret = merger.run(Paths.get("src/test/data/merger/myconfig_local.ini"), "449", tempDir);

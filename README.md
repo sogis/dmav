@@ -35,7 +35,15 @@ Die Keys müssen dem Datenmodellnamen entsprechen. Jedes Modell kann nur einmal 
 
 ### Datei aufsplitten
 
-TODO
+```
+java -jar dmav.jar split --config=myconfig.ini" --fosnr=449 --out=/path/to/directory
+```
+
+| Name | Beschreibung | Required |
+|-----|-----|-----|
+| `--input` | Pfad zur Input-Transferdatei mit allen Themen. | ja |
+| `--fosnr` | BFS-Nummer. Neue Daten werden mit diesem Suffix versehen. | ja |
+| `--out` | Zielverzeichnis, in das die resultierenden Transferdateien gespeichert werden. | ja |
 
 ## Interne Struktur
 
@@ -45,8 +53,7 @@ Die eigentliche Arbeit wird mit XSLT gemacht. In der XSL-Datei sind die Dateinam
 Es wäre möglich ohne Konfig-Datei zu arbeiten. Dann müssten die Dateinamen aber bereits korrekt benannt (nach Modell) werden. Die XSL-Transformation ist so aufgebaut, dass sie eine bekannten Zahl von Dateien bearbeitet.
 
 ### Split
-....
-
+XSLT übernimmt ebenfalls beim Splitten die Hauptaufgabe. Pro Modell und Topic wird eine neue Datei erzeugt. In den Datenmodell gibt es jeweils nur ein Topic pro Modell. Sollte sich das ändern, müsste man die XSL-Transformation noch anpassen.
 
 ## Develop
 

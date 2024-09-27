@@ -4,7 +4,7 @@
     <xsl:output indent="yes"/>
     <xsl:strip-space elements="*"/>
 
-    <xsl:param name="fosnr" select="'449'"/>
+    <xsl:param name="fosnr" select="'XXXX'"/>
 
     <xsl:variable name="DMAV_FixpunkteLV_V1_0">
         <xsl:choose>

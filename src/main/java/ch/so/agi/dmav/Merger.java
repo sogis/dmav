@@ -13,16 +13,19 @@ import java.util.Map;
 import javax.xml.transform.stream.StreamSource;
 
 import net.sf.saxon.s9api.Processor;
+import net.sf.saxon.s9api.QName;
 import net.sf.saxon.s9api.SaxonApiException;
 import net.sf.saxon.s9api.Serializer;
+import net.sf.saxon.s9api.XdmAtomicValue;
 import net.sf.saxon.s9api.XdmNode;
+import net.sf.saxon.s9api.XdmValue;
 import net.sf.saxon.s9api.XsltCompiler;
 import net.sf.saxon.s9api.XsltExecutable;
 import net.sf.saxon.s9api.XsltTransformer;
 
 public class Merger {
 
-    public boolean run(Path configFile, String fosnr, Path outputFile) {
+    public boolean run(Path configFile, String fosnr, Path outputDir) {
         
         // Speicherorte der Dateien aus Config-Datei lesen und BFS-Nummer
         // ersetzen.
@@ -74,7 +77,7 @@ public class Merger {
         // laden.
         Path xslFile = null;
         Path inputXmlFile = null;
-        Path outputXmlFile = outputFile.resolve("DMAV."+fosnr+".xtf");
+        Path outputXmlFile = outputDir.resolve("DMAV."+fosnr+".xtf");
         try {
             xslFile = Utils.loadFile("merge.xsl", tmpdir);
             inputXmlFile = Utils.loadFile("DMAV_Skeleton.xtf", tmpdir);
@@ -94,6 +97,7 @@ public class Merger {
             trans = exp.load();
             trans.setInitialContextNode(source);
             trans.setDestination(outXml);
+            trans.setParameter(new QName("fosnr"), (XdmValue) XdmAtomicValue.makeAtomicValue(fosnr));
             trans.transform();
         } catch (SaxonApiException e) {
             e.printStackTrace();
