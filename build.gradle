@@ -11,17 +11,21 @@ compileJava {
 
 repositories {
     mavenCentral()
+    maven { url 'https://jars.interlis.ch/' }
 }
 
 dependencies {
     testImplementation libs.junit.jupiter
+    testImplementation "ch.interlis:ilivalidator:1.14.3"
+    testImplementation 'com.squareup.okhttp3:mockwebserver:4.12.0'
 
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-    implementation libs.guava
     implementation 'info.picocli:picocli:4.7.6'
     implementation 'info.picocli:picocli-codegen:4.7.6'
     annotationProcessor 'info.picocli:picocli-codegen:4.7.6'
+    
+    implementation libs.saxon.he
 }
 
 java {
@@ -40,5 +44,5 @@ tasks.named('test') {
 
 run {
     //args = ["--help"]
-    args = ["merge"]
+    args = ["merge", "--config=myconfigAAAAA.ini", "--fosnr=449", "--out=/Users/stefan/tmp"]
 }

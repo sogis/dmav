@@ -47,6 +47,10 @@ public class App implements Callable<Integer> {
             System.out.println("Merging files with config: " + config +
                     ", FOSNR: " + fosnr + ", Output: " + outputFile);
             // Beispielhafte Implementierung
+            
+            Merger merger = new Merger();
+            boolean ret = merger.run(config, fosnr, outputFile);            
+            
             return 0;
         }
     }
