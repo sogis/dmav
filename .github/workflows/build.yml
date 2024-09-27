@@ -29,7 +29,6 @@ jobs:
           ls -la build/libs
 
       - uses: actions/upload-artifact@v2
-        if: ${{ failure() }}
         if: always() && (steps.buildLib.outcome == 'success')
         with:
           name: reports
