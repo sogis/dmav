@@ -22,7 +22,7 @@ jobs:
           
       - name: Build with Gradle (SNAPSHOT)
         id: buildSnapshotLib
-        run: ./gradlew clean build 
+        run: ./gradlew clean build sourcesJar javadocJar 
 
       - name: Debug 1
         run: |
