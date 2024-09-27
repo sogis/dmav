@@ -82,18 +82,18 @@ publishing {
             artifact javadocJar
 
             pom {
-                name = "iox-formats"
-                url = "https://github.com/sogis/iox-formats"
-                description = "iox-formats"
+                name = "dmav"
+                url = "https://github.com/edigonzales/dmav"
+                description = "dmav"
                 scm {
-                    connection = "scm:git:https@github.com/sogis/iox-formats"
-                    developerConnection = "scm:git:https@github.com/sogis/iox-formats"
-                    url = "https://github.com/sogis/iox-formats"
+                    connection = "scm:git:https@github.com/edigonzales/dmav"
+                    developerConnection = "scm:git:https@github.com/edigonzales/dmav"
+                    url = "https://github.com/edigonzales/dmav"
                 }
                 licenses {
                     license {
                         name = "MIT"
-                        url = "https://github.com/sogis/iox-formats/blob/master/LICENSE"
+                        url = "https://github.com/edigonzales/dmav/blob/master/LICENSE"
                     }
                 }
                 developers {
