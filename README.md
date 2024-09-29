@@ -20,7 +20,7 @@ Die verschiedenen Funktionalitäten sind mittels Subkommandos aufrufbar.
 ### Dateien mergen
 
 ```
-java -jar dmav.jar merge --config=myconfig.ini" --fosnr=449 --out=/path/to/directory
+java -jar dmav.jar merge --config myconfig.ini" --fosnr 449 --out /path/to/directory
 ```
 
 | Name | Beschreibung | Required |
@@ -40,7 +40,7 @@ Die Keys müssen dem Datenmodellnamen entsprechen. Jedes Modell kann nur einmal 
 ### Datei aufsplitten
 
 ```
-java -jar dmav.jar split --config=myconfig.ini" --fosnr=449 --out=/path/to/directory
+java -jar dmav.jar split --input path/to/dmav.xtf" --fosnr 449 --out /path/to/directory
 ```
 
 | Name | Beschreibung | Required |
