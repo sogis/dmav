@@ -68,7 +68,6 @@ git checkout stable
 git rebase main
 ```
 
-
 ## Develop
 
 ### merge
