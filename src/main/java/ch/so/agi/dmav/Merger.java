@@ -56,12 +56,9 @@ public class Merger {
                 if (value.startsWith("http")) {
                     String fileURL = value;
                     Path targetPath = tmpdir.resolve(key+"."+fosnr+".xtf");
-                    System.out.println(fileURL);
                     
                     try (InputStream in = new URL(fileURL).openStream()) {
                         Files.copy(in, targetPath, StandardCopyOption.REPLACE_EXISTING);
-                        
-                        System.out.println(targetPath);
                     }
                 } else {
                     Path xtfFile = Paths.get(tmpdir.toAbsolutePath().toString(), key+"."+fosnr+".xtf");
