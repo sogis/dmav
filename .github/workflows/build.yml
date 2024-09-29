@@ -21,6 +21,7 @@ jobs:
           cache: 'gradle'
           
       - name: Build with Gradle (SNAPSHOT)
+        if: ${{ success() && github.ref == 'refs/heads/stable'}}
         id: buildSnapshotLib
         run: ./gradlew clean build sourcesJar javadocJar 
 
@@ -62,6 +63,6 @@ jobs:
       - name: Release library (RELEASE)
         if: ${{ success() && github.ref == 'refs/heads/stable'}}
         run: |
-          ./gradlew -i app:jreleaserRelease -Drelease=
+          ./gradlew -i jreleaserRelease -Drelease=
         env:
           JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
