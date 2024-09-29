@@ -65,8 +65,11 @@ jobs:
       #     OSSRH_PASSWORD: ${{secrets.OSSRH_PASSWORD}} 
 
       - name: Release library (RELEASE)
+        # if: ${{ success() && github.ref == 'refs/heads/stable'}}
         if: ${{ success() && github.ref == 'refs/heads/main'}}
+        # run: |
+        #   ./gradlew -s jreleaserRelease -Drelease=
         run: |
-          ./gradlew -s jreleaserRelease -Drelease=
+          ./gradlew -s jreleaserRelease 
         env:
           JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
