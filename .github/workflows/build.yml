@@ -1,4 +1,4 @@
-name: iox-parquet CI
+name: dmav CI
 
 on: 
   push:
