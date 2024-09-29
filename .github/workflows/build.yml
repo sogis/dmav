@@ -1,4 +1,4 @@
-name: dmav CI
+name: build and release
 
 on: 
   push:
