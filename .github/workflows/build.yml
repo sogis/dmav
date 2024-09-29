@@ -21,7 +21,7 @@ jobs:
           cache: 'gradle'
           
       - name: Build with Gradle (SNAPSHOT)
-        if: ${{ success() && github.ref == 'refs/heads/stable'}}
+        if: ${{ success() && github.ref == 'refs/heads/main'}}
         id: buildSnapshotLib
         run: ./gradlew clean build sourcesJar javadocJar 
 
