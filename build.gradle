@@ -140,7 +140,7 @@ jreleaser {
     }
     distributions {
         appJvm {
-            distributionType = 'JAVA_BINARY'
+            distributionType = 'SINGLE_JAR'
             stereotype = 'CLI'
             artifact {
                 path = "build/libs/dmav-${version}-all.jar"
