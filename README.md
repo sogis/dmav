@@ -59,6 +59,16 @@ Es wäre möglich ohne Konfig-Datei zu arbeiten. Dann müssten die Dateinamen ab
 ### Split
 XSLT übernimmt ebenfalls beim Splitten die Hauptaufgabe. Pro Modell und Topic wird eine neue Datei erzeugt. In den Datenmodell gibt es jeweils nur ein Topic pro Modell. Sollte sich das ändern, müsste man die XSL-Transformation noch anpassen.
 
+## Release
+
+Es gibt die zwei Branches _main_ und _stable_. Entwickelt wird im _main_-Branch. Für einen Release müssen die Änderungen in den _stable_-Branch gemerged werden:
+
+```
+git checkout stable
+git rebase main
+```
+
+
 ## Develop
 
 ### merge
