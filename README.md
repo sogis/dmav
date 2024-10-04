@@ -52,7 +52,7 @@ java -jar dmav.jar split --input path/to/dmav.xtf" --fosnr 449 --out /path/to/di
 ## Interne Struktur
 
 ### Merge
-Die eigentliche Arbeit wird mit XSLT gemacht. In der XSL-Datei sind die Dateinamen (bis auf die BFS-Nummer) hardcodiert. Aus diesem Grund muss der Key aus der Konfig-Datei mit dem Namensrumpf der zu lesenden Transferdateien übereinstimmen. In einem Zwischenschritt werden sämtliche referenzierten Dateien in der Konfig-Datei in das gleiche Verzeichnis wie die XSL-Datei kopiert und entsprechend umbenannt. Somit können die Namen in der XSL-Datei hardcodiert (bis auf die BFS-Nummer) bleiben.
+Die eigentliche Arbeit wird mit XSLT gemacht. In der XSL-Datei sind die Dateinamen (bis auf die BFS-Nummer) hardcodiert. Aus diesem Grund muss der Key aus der Konfig-Datei mit dem Namensrumpf der zu lesenden Transferdateien übereinstimmen. In einem Zwischenschritt werden sämtliche referenzierten Dateien in der Konfig-Datei in das gleiche Verzeichnis wie die XSL-Datei kopiert und entsprechend umbenannt. Somit können die Namen resp der Pfad der Datei in der XSL-Datei hardcodiert (bis auf die BFS-Nummer) bleiben.
 
 Es wäre möglich ohne Konfig-Datei zu arbeiten. Dann müssten die Dateinamen aber bereits korrekt benannt (nach Modell) werden. Die XSL-Transformation ist so aufgebaut, dass sie eine bekannten Zahl von Dateien bearbeitet.
 
