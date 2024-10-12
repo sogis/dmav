@@ -8,7 +8,7 @@ Werkzeugkasten für das Handling mit DMAV-Transferdateien:
 Snapshot-Versionen: 
 - https://s01.oss.sonatype.org/content/repositories/snapshots/io/github/sogis/dmav/ -> X.Y.Z-SNAPSHOT -> dmav-X.Y.Z-Datum.Uhrzeit-all.jar
 
-Release-Versionen: ...
+Release-Versionen: 
 - https://s01.oss.sonatype.org/content/repositories/releases/io/github/sogis/dmav/ 
 - https://github.com/edigonzales/dmav/releases
 
