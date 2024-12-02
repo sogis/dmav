@@ -23,7 +23,7 @@ Die verschiedenen Funktionalitäten sind mittels Subkommandos aufrufbar.
 ### Dateien mergen
 
 ```
-java -jar dmav.jar merge --config myconfig.ini" --fosnr 449 --out /path/to/directory
+java -jar dmav.jar merge --config myconfig.ini --fosnr 449 --out /path/to/directory
 ```
 
 | Name | Beschreibung | Required |
