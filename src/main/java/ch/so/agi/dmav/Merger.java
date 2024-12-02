@@ -34,8 +34,8 @@ public class Merger {
             files = ConfigParser.read(configFile);
             
             for (Map.Entry<String, String> entry : files.entrySet()) {
-                String key = entry.getKey();
-                String value = entry.getValue();
+                String key = entry.getKey().trim();
+                String value = entry.getValue().trim();
                 String newValue = value.replace("${fosnr}", fosnr);
                 files.put(key, newValue);
             }
