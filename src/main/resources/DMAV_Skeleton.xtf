@@ -4,20 +4,10 @@
     <ili:models>
       <ili:model>DMAVTYM_Topologie_V1_0</ili:model>
       <ili:model>DMAVTYM_Vermarkung_V1_0</ili:model>
-      <ili:model>CoordSys</ili:model>
       <ili:model>DMAVTYM_Geometrie_V1_0</ili:model>
       <ili:model>DMAVTYM_Modinfo_V1_0</ili:model>
-      <ili:model>InternationalCodes_V2</ili:model>
-      <ili:model>Localisation_V2</ili:model>
-      <ili:model>LocalisationCH_V2</ili:model>
-      <ili:model>Dictionaries_V2</ili:model>
-      <ili:model>DictionariesCH_V2</ili:model>
       <ili:model>Units</ili:model>
       <ili:model>CHAdminCodes_V2</ili:model>
-      <ili:model>AdministrativeUnits_V2</ili:model>
-      <ili:model>AdministrativeUnitsCH_V2</ili:model>
-      <ili:model>Geometry_V2</ili:model>
-      <ili:model>GeometryCHLV03_V2</ili:model>
       <ili:model>GeometryCHLV95_V2</ili:model>
       <ili:model>DMAVTYM_Qualitaet_V1_0</ili:model>
       <ili:model>DMAVSUP_UntereinheitGrundbuch_V1_0</ili:model>
