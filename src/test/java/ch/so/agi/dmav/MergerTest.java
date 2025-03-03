@@ -36,7 +36,7 @@ public class MergerTest {
     public void mergeLocalFilesOk(@TempDir Path tempDir) throws IOException {
         // Run test
         Merger merger = new Merger();
-        Path myTempDir = Path.of("/Users/stefan/tmp/");
+        //Path myTempDir = Path.of("/Users/stefan/tmp/");
         boolean ret = merger.run(Paths.get("src/test/data/merger/myconfig_local.ini"), "449", tempDir);
     
         // Validate result
@@ -51,14 +51,14 @@ public class MergerTest {
         assertTrue(valid);
         
         String content = Files.readString(logFile);
-        assertTrue(content.contains("3 objects in CLASS DMAV_FixpunkteAVKategorie2_V1_0.FixpunkteAVKategorie2.LFP2"));
-        assertTrue(content.contains("3 objects in CLASS DMAV_PLZ_Ortschaft_V1_0.PLZ_Ortschaft.PLZ"));
+        assertTrue(content.contains("114 objects in CLASS DMAV_FixpunkteAVKategorie3_V1_0.FixpunkteAVKategorie3.LFP3"));
+        assertTrue(content.contains("1 objects in CLASS DMAV_HoheitsgrenzenAV_V1_0.HoheitsgrenzenAV.Gemeindegrenze"));
     }
     
     @Test
     public void mergeExternalFilesOk(@TempDir Path tempDir) throws IOException {
         // Prepare
-        byte[] fileContent = Files.readAllBytes(Paths.get("src/test/data/merger/DMAV_PLZ_Ortschaft_V1_0.449.xtf"));
+        byte[] fileContent = Files.readAllBytes(Paths.get("src/test/data/merger/DMAV_FixpunkteAVKategorie3_V1_0.449.xtf"));
 
         mockWebServer.enqueue(new MockResponse()
                 .setBody(new String(fileContent)) 
@@ -81,8 +81,8 @@ public class MergerTest {
         assertTrue(valid);
         
         String content = Files.readString(logFile);
-        assertTrue(content.contains("3 objects in CLASS DMAV_FixpunkteAVKategorie2_V1_0.FixpunkteAVKategorie2.LFP2"));
-        assertTrue(content.contains("3 objects in CLASS DMAV_PLZ_Ortschaft_V1_0.PLZ_Ortschaft.PLZ"));
+        assertTrue(content.contains("114 objects in CLASS DMAV_FixpunkteAVKategorie3_V1_0.FixpunkteAVKategorie3.LFP3"));
+        assertTrue(content.contains("1 objects in CLASS DMAV_HoheitsgrenzenAV_V1_0.HoheitsgrenzenAV.Gemeindegrenze"));
     }
 
 }
