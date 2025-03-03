@@ -32,6 +32,53 @@ public class MergerTest {
         mockWebServer.shutdown();
     }
 
+    //@Test
+    public void mergeMultipleExternalZipFilesOk(@TempDir Path tempDir) throws IOException {
+        // Prepare
+        // todo
+        //Path myTempDir = Path.of("/Users/stefan/tmp/");
+
+        
+        // Run test
+        Merger merger = new Merger();
+        boolean ret = merger.run(Paths.get("src/test/data/merger/myconfig_web_multiple_zip.ini"), "449", tempDir);
+
+        
+        
+        // Validate
+    }
+
+    
+    // Multiple: verschiedene Dateien zum gleichen Modell (z.B. FixpunkteLV HFP1 und LFP1)
+    @Test
+    public void mergeMultipleLocalFilesOk(@TempDir Path tempDir) throws IOException {
+        // Prepare
+        // todo
+        //Path myTempDir = Path.of("/Users/stefan/tmp/");
+
+        
+        // Run test
+        Merger merger = new Merger();
+        boolean ret = merger.run(Paths.get("src/test/data/merger/myconfig_local_multiple.ini"), "449", tempDir);
+
+        // Validate result
+        assertTrue(ret);
+
+        Path xtfFile = tempDir.resolve("DMAV.449.xtf");
+        Settings settings = new Settings();
+        Path logFile = tempDir.resolve("ilivaliator.log").toAbsolutePath();
+        settings.setValue(Validator.SETTING_LOGFILE, logFile.toString());
+        
+        boolean valid = Validator.runValidation(xtfFile.toString(), settings);
+        assertTrue(valid);
+
+        String content = Files.readString(logFile);
+        assertTrue(content.contains("114 objects in CLASS DMAV_FixpunkteAVKategorie3_V1_0.FixpunkteAVKategorie3.LFP3"));
+        assertTrue(content.contains("3 objects in CLASS FixpunkteLV_V1_0.FixpunkteLV.HFP1"));
+        assertTrue(content.contains("3 objects in CLASS FixpunkteLV_V1_0.FixpunkteLV.LFP1"));
+   
+    }
+
     @Test
     public void mergeLocalFilesOk(@TempDir Path tempDir) throws IOException {
         // Run test

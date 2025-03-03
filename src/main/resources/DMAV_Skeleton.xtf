@@ -16,7 +16,7 @@
       <ili:model>DMAV_PLZ_Ortschaft_V1_0</ili:model>
       <ili:model>DMAV_HoheitsgrenzenLV_V1_0</ili:model>
       <ili:model>DMAV_HoheitsgrenzenAV_V1_0</ili:model>
-      <ili:model>DMAV_FixpunkteLV_V1_0</ili:model>
+      <ili:model>FixpunkteLV_V1_0</ili:model>
       <ili:model>DMAV_Nomenklatur_V1_0</ili:model>
       <ili:model>DMAV_Gebaeudeadressen_V1_0</ili:model>
       <ili:model>DMAV_Dienstbarkeitsgrenzen_V1_0</ili:model>

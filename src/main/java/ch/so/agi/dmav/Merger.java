@@ -27,24 +27,31 @@ import net.sf.saxon.s9api.XsltTransformer;
 
 public class Merger {
 
-    List<String> models = List.of(
-            "DMAVSUP_UntereinheitGrundbuch_V1_0",
-            "DMAV_Toleranzstufen_V1_0",
-            "DMAV_PLZ_Ortschaft_V1_0",
-            "DMAV_HoheitsgrenzenLV_V1_0",
-            "DMAV_HoheitsgrenzenAV_V1_0",
-            "DMAV_FixpunkteLV_V1_0",
-            "DMAV_Nomenklatur_V1_0",
-            "DMAV_Gebaeudeadressen_V1_0",
-            "DMAV_Dienstbarkeitsgrenzen_V1_0",
-            "DMAV_Einzelobjekte_V1_0",
-            "DMAV_FixpunkteAVKategorie3_V1_0",
-            "DMAV_Bodenbedeckung_V1_0",
-            "DMAV_Rohrleitungen_V1_0",
-            "DMAV_Grundstuecke_V1_0",
-            "DMAV_FixpunkteAVKategorie2_V1_0",
-            "DMAV_DauerndeBodenverschiebungen_V1_0"
-        );
+    // Bei FixpunkteLV ist es nicht mehr exakt der Modellname, 
+    // das diese Daten in zwei XTF bereitgestellt werden.
+    // Der Einfachheit halber muss aber die XSL-Transformation
+    // die Dateinamen kennen.
+    // Und die Modelle brauche ich für das Laden der Ressourcen.
+    Map<String, String> keysModels = new HashMap<>()
+    {{
+         put("DMAVSUP_UntereinheitGrundbuch_V1_0", "DMAVSUP_UntereinheitGrundbuch_V1_0");
+         put("DMAV_Toleranzstufen_V1_0", "DMAV_Toleranzstufen_V1_0");
+         put("DMAV_PLZ_Ortschaft_V1_0", "DMAV_PLZ_Ortschaft_V1_0");
+         put("DMAV_HoheitsgrenzenLV_V1_0", "DMAV_HoheitsgrenzenLV_V1_0");
+         put("DMAV_HoheitsgrenzenAV_V1_0", "DMAV_HoheitsgrenzenAV_V1_0");
+         put("FixpunkteLV_V1_0_LFP", "FixpunkteLV_V1_0");
+         put("FixpunkteLV_V1_0_HFP", "FixpunkteLV_V1_0");
+         put("DMAV_Nomenklatur_V1_0","DMAV_Nomenklatur_V1_0");
+         put("DMAV_Gebaeudeadressen_V1_0","DMAV_Gebaeudeadressen_V1_0");
+         put("DMAV_Dienstbarkeitsgrenzen_V1_0","DMAV_Dienstbarkeitsgrenzen_V1_0");
+         put("DMAV_Einzelobjekte_V1_0","DMAV_Einzelobjekte_V1_0");
+         put("DMAV_FixpunkteAVKategorie3_V1_0","DMAV_FixpunkteAVKategorie3_V1_0");
+         put("DMAV_Bodenbedeckung_V1_0","DMAV_Bodenbedeckung_V1_0");
+         put("DMAV_Rohrleitungen_V1_0","DMAV_Rohrleitungen_V1_0");
+         put("DMAV_Grundstuecke_V1_0","DMAV_Grundstuecke_V1_0");
+         put("DMAV_FixpunkteAVKategorie2_V1_0","DMAV_FixpunkteAVKategorie2_V1_0");
+         put("DMAV_DauerndeBodenverschiebungen_V1_0","DMAV_DauerndeBodenverschiebungen_V1_0");
+    }};
 
     public boolean run(Path configFile, String fosnr, Path outputDir) {
         
@@ -70,17 +77,24 @@ public class Merger {
         Path tmpdir = null;        
         try {
             tmpdir = Files.createTempDirectory("dmav_");
+            System.out.println("tmpdir: " + tmpdir);
             
             // Leere (empty baskets) XTF laden, damit jedes
             // Thema (Modell) vorhanden ist. Damit stimmt mein
             // statischer ilimodels-Header.
-            for (String model : models) {
+            // Eigentlich distinct values(). Ist aber keine Problem. Wird
+            // einfach übeschrieben (sprich 2x aus Ressourcen kopiert).
+            for (String model : keysModels.keySet()) {
                 loadAndRenameResource(model, tmpdir, fosnr);
             }
 
             for (Map.Entry<String, String> entry : files.entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue();
+                
+                System.out.println("key: " +key);
+                System.out.println("value: " +value);
+                
                 
                 if (value.startsWith("http")) {
                     String fileURL = value;
@@ -91,6 +105,7 @@ public class Merger {
                     }
                 } else {
                     Path xtfFile = Paths.get(tmpdir.toAbsolutePath().toString(), key+"."+fosnr+".xtf");
+                    System.out.println("xtfFile: " + xtfFile);
                     Files.copy(Paths.get(value), xtfFile, StandardCopyOption.REPLACE_EXISTING);                    
                 }
             }
@@ -98,7 +113,7 @@ public class Merger {
             e.printStackTrace();
             return false;
         }
-        
+                
         // XML-Skeletion und XSL-Tranformation aus Resourcen
         // laden.
         Path xslFile = null;

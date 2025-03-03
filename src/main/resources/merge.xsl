@@ -1,21 +1,32 @@
 <?xml version="1.0"?>
-<xsl:stylesheet version="3.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ili="http://www.interlis.ch/xtf/2.4/INTERLIS">
+<xsl:stylesheet version="3.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ili="http://www.interlis.ch/xtf/2.4/INTERLIS" xmlns:FixpunkteLV_V1_0="http://www.interlis.ch/xtf/2.4/FixpunkteLV_V1_0">
 
     <xsl:output indent="yes"/>
     <xsl:strip-space elements="*"/>
 
     <xsl:param name="fosnr" select="'XXXX'"/>
 
-    <xsl:variable name="DMAV_FixpunkteLV_V1_0">
+    <xsl:variable name="FixpunkteLV_V1_0_LFP">
         <xsl:choose>
-            <xsl:when test="doc-available(concat('DMAV_FixpunkteLV_V1_0.', $fosnr, '.xtf'))">
-                <xsl:copy-of select="document(concat('DMAV_FixpunkteLV_V1_0.', $fosnr, '.xtf'))"/>
-                <xsl:message>Found: DMAV_FixpunkteLV_V1_0</xsl:message>
+            <xsl:when test="doc-available(concat('FixpunkteLV_V1_0_LFP.', $fosnr, '.xtf'))">
+                <xsl:copy-of select="document(concat('FixpunkteLV_V1_0_LFP.', $fosnr, '.xtf'))"/>
+                <xsl:message>DMAV_FixpunkteLV_V1_0 (LFP)</xsl:message>
             </xsl:when>
             <xsl:otherwise>
                 <empty/>
                 <!-- truly empty node: 
                 <xsl:sequence select="()"/> -->
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="FixpunkteLV_V1_0_HFP">
+        <xsl:choose>
+            <xsl:when test="doc-available(concat('FixpunkteLV_V1_0_HFP.', $fosnr, '.xtf'))">
+                <xsl:copy-of select="document(concat('FixpunkteLV_V1_0_HFP.', $fosnr, '.xtf'))"/>
+                <xsl:message>DMAV_FixpunkteLV_V1_0 (HFP)</xsl:message>
+            </xsl:when>
+            <xsl:otherwise>
+                <empty/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
@@ -192,7 +203,10 @@
         <ili:transfer xmlns:ili="http://www.interlis.ch/xtf/2.4/INTERLIS">
             <xsl:copy-of select="ili:headersection"/>
             <ili:datasection>
-                <xsl:copy-of select="$DMAV_FixpunkteLV_V1_0/ili:transfer/ili:datasection/*"/>
+                <FixpunkteLV_V1_0:FixpunkteLV ili:bid="bb3b5f52-707b-4ac6-9cf8-4d03ef37bb3a">
+                    <xsl:copy-of select="$FixpunkteLV_V1_0_LFP/ili:transfer/ili:datasection/FixpunkteLV_V1_0:FixpunkteLV/FixpunkteLV_V1_0:LFP1"/>
+                    <xsl:copy-of select="$FixpunkteLV_V1_0_HFP/ili:transfer/ili:datasection/FixpunkteLV_V1_0:FixpunkteLV/FixpunkteLV_V1_0:HFP1"/>
+                </FixpunkteLV_V1_0:FixpunkteLV>
                 <xsl:copy-of select="$DMAV_FixpunkteAVKategorie2_V1_0/ili:transfer/ili:datasection/*"/>
                 <xsl:copy-of select="$DMAV_FixpunkteAVKategorie3_V1_0/ili:transfer/ili:datasection/*"/>
                 <xsl:copy-of select="$DMAV_Bodenbedeckung_V1_0/ili:transfer/ili:datasection/*"/>
