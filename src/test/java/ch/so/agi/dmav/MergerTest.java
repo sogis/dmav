@@ -52,11 +52,6 @@ public class MergerTest {
     // Multiple: verschiedene Dateien zum gleichen Modell (z.B. FixpunkteLV HFP1 und LFP1)
     @Test
     public void mergeMultipleLocalFilesOk(@TempDir Path tempDir) throws IOException {
-        // Prepare
-        // todo
-        //Path myTempDir = Path.of("/Users/stefan/tmp/");
-
-        
         // Run test
         Merger merger = new Merger();
         boolean ret = merger.run(Paths.get("src/test/data/merger/myconfig_local_multiple.ini"), "449", tempDir);
@@ -76,7 +71,6 @@ public class MergerTest {
         assertTrue(content.contains("114 objects in CLASS DMAV_FixpunkteAVKategorie3_V1_0.FixpunkteAVKategorie3.LFP3"));
         assertTrue(content.contains("3 objects in CLASS FixpunkteLV_V1_0.FixpunkteLV.HFP1"));
         assertTrue(content.contains("3 objects in CLASS FixpunkteLV_V1_0.FixpunkteLV.LFP1"));
-   
     }
 
     @Test

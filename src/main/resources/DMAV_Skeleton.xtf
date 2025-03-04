@@ -25,7 +25,7 @@
       <ili:model>DMAV_Bodenbedeckung_V1_0</ili:model>
       <ili:model>DMAV_Rohrleitungen_V1_0</ili:model>
       <ili:model>DMAV_Grundstuecke_V1_0</ili:model>
-      <ili:model>DMAV_FixpunkteAVKategorie2_V1_0</ili:model>
+      <ili:model>KGKCGC_FPDS2_V1_1</ili:model>
       <ili:model>DMAV_DauerndeBodenverschiebungen_V1_0</ili:model>
     </ili:models>
     <ili:sender>dmavmerger</ili:sender>
