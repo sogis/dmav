@@ -110,6 +110,7 @@ public class Merger {
                         Path zipTargetPath = tmpdir.resolve(fileName);
 
                         try (InputStream in = url.openStream()) {
+                            System.err.println("Downloading: " + fileURL);
                             Files.copy(in, zipTargetPath, StandardCopyOption.REPLACE_EXISTING);
                             getXtfFromZip(zipTargetPath, finalTargetPath);
                         }
