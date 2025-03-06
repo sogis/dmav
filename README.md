@@ -40,6 +40,8 @@ KGKCGC_FPDS2_V1_1=https://geodienste.ch/downloads/interlis/fixpunkte/SO/fixpunkt
 
 Die Keys müssen dem Datenmodellnamen entsprechen. Jedes Modell kann nur einmal vorkommen. Die Values sind der Pfad der Einzeldatei. Entweder lokal oder als HTTP-Url. Die Datei darf _nicht_ gezippt sein. Der Platzhalter `${fosnr}` ist nicht zwingend notwendig.
 
+Es wird die erste XTF-Datei innerhalb der ZIP-Datei verwendet.
+
 ### Datei aufsplitten
 
 ```
