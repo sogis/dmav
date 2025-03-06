@@ -13,7 +13,7 @@
       <ili:model>DMAVSUP_UntereinheitGrundbuch_V1_0</ili:model>
       <ili:model>DMAV_Toleranzstufen_V1_0</ili:model>
       <ili:model>DMAVTYM_Grafik_V1_0</ili:model>
-      <ili:model>DMAV_PLZ_Ortschaft_V1_0</ili:model>
+      <ili:model>OfficialIndexOfLocalities_V1_0</ili:model>
       <ili:model>DMAV_HoheitsgrenzenLV_V1_0</ili:model>
       <ili:model>DMAV_HoheitsgrenzenAV_V1_0</ili:model>
       <ili:model>FixpunkteLV_V1_0</ili:model>

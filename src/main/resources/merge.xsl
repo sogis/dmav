@@ -6,11 +6,14 @@
 
     <xsl:param name="fosnr" select="'XXXX'"/>
 
+
+    <!-- Achtung fn:doc-available und/oder fn:document liefert false / nichts zurück, wenn keine gültiges XML-Dokument. -->
+
     <xsl:variable name="FixpunkteLV_V1_0_LFP">
         <xsl:choose>
             <xsl:when test="doc-available(concat('FixpunkteLV_V1_0_LFP.', $fosnr, '.xtf'))">
                 <xsl:copy-of select="document(concat('FixpunkteLV_V1_0_LFP.', $fosnr, '.xtf'))"/>
-                <xsl:message>DMAV_FixpunkteLV_V1_0 (LFP)</xsl:message>
+                <xsl:message>Found: DMAV_FixpunkteLV_V1_0 (LFP)</xsl:message>
             </xsl:when>
             <xsl:otherwise>
                 <empty/>
@@ -23,21 +26,23 @@
         <xsl:choose>
             <xsl:when test="doc-available(concat('FixpunkteLV_V1_0_HFP.', $fosnr, '.xtf'))">
                 <xsl:copy-of select="document(concat('FixpunkteLV_V1_0_HFP.', $fosnr, '.xtf'))"/>
-                <xsl:message>DMAV_FixpunkteLV_V1_0 (HFP)</xsl:message>
+                <xsl:message>Found: DMAV_FixpunkteLV_V1_0 (HFP)</xsl:message>
             </xsl:when>
             <xsl:otherwise>
                 <empty/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
-    <xsl:variable name="DMAV_FixpunkteAVKategorie2_V1_0">
+    <xsl:variable name="KGKCGC_FPDS2_V1_1">
         <xsl:choose>
-            <xsl:when test="doc-available(concat('DMAV_FixpunkteAVKategorie2_V1_0.', $fosnr, '.xtf'))">
-                <xsl:copy-of select="document(concat('DMAV_FixpunkteAVKategorie2_V1_0.', $fosnr, '.xtf'))"/>
-                <xsl:message>Found: DMAV_FixpunkteAVKategorie2_V1_0</xsl:message>
+            <xsl:when test="doc-available(concat('KGKCGC_FPDS2_V1_1.', $fosnr, '.xtf'))">
+                <xsl:copy-of select="document(concat('KGKCGC_FPDS2_V1_1.', $fosnr, '.xtf'))"/>
+                <xsl:message>Found: KGKCGC_FPDS2_V1_1</xsl:message>
             </xsl:when>
             <xsl:otherwise>
                 <empty/>
+                <!-- truly empty node: 
+                <xsl:sequence select="()"/> -->
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
@@ -151,11 +156,11 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
-    <xsl:variable name="DMAV_PLZ_Ortschaft_V1_0">
+    <xsl:variable name="OfficialIndexOfLocalities_V1_0">
         <xsl:choose>
-            <xsl:when test="doc-available(concat('DMAV_PLZ_Ortschaft_V1_0.', $fosnr, '.xtf'))">
-                <xsl:copy-of select="document(concat('DMAV_PLZ_Ortschaft_V1_0.', $fosnr, '.xtf'))"/>
-                <xsl:message>Found: DMAV_PLZ_Ortschaft_V1_0</xsl:message>
+            <xsl:when test="doc-available(concat('OfficialIndexOfLocalities_V1_0.', $fosnr, '.xtf'))">
+                <xsl:copy-of select="document(concat('OfficialIndexOfLocalities_V1_0.', $fosnr, '.xtf'))"/>
+                <xsl:message>Found: OfficialIndexOfLocalities_V1_0</xsl:message>
             </xsl:when>
             <xsl:otherwise>
                 <empty/>
@@ -207,7 +212,8 @@
                     <xsl:copy-of select="$FixpunkteLV_V1_0_LFP/ili:transfer/ili:datasection/FixpunkteLV_V1_0:FixpunkteLV/FixpunkteLV_V1_0:LFP1"/>
                     <xsl:copy-of select="$FixpunkteLV_V1_0_HFP/ili:transfer/ili:datasection/FixpunkteLV_V1_0:FixpunkteLV/FixpunkteLV_V1_0:HFP1"/>
                 </FixpunkteLV_V1_0:FixpunkteLV>
-                <xsl:copy-of select="$DMAV_FixpunkteAVKategorie2_V1_0/ili:transfer/ili:datasection/*"/>
+                <!--<xsl:copy-of select="$KGKCGC_FPDS2_V1_1/ili:transfer/ili:datasection/*"/>-->
+                <xsl:copy-of select="$KGKCGC_FPDS2_V1_1/ili:transfer/ili:datasection/*"/>
                 <xsl:copy-of select="$DMAV_FixpunkteAVKategorie3_V1_0/ili:transfer/ili:datasection/*"/>
                 <xsl:copy-of select="$DMAV_Bodenbedeckung_V1_0/ili:transfer/ili:datasection/*"/>
                 <xsl:copy-of select="$DMAV_Einzelobjekte_V1_0/ili:transfer/ili:datasection/*"/>
@@ -218,7 +224,7 @@
                 <xsl:copy-of select="$DMAV_HoheitsgrenzenAV_V1_0/ili:transfer/ili:datasection/*"/>
                 <xsl:copy-of select="$DMAV_Toleranzstufen_V1_0/ili:transfer/ili:datasection/*"/>
                 <xsl:copy-of select="$DMAV_DauerndeBodenverschiebungen_V1_0/ili:transfer/ili:datasection/*"/>
-                <xsl:copy-of select="$DMAV_PLZ_Ortschaft_V1_0/ili:transfer/ili:datasection/*"/>
+                <xsl:copy-of select="$OfficialIndexOfLocalities_V1_0/ili:transfer/ili:datasection/*"/>
                 <xsl:copy-of select="$DMAV_Gebaeudeadressen_V1_0/ili:transfer/ili:datasection/*"/>
                 <xsl:copy-of select="$DMAVSUP_UntereinheitGrundbuch_V1_0/ili:transfer/ili:datasection/*"/>
                 <xsl:copy-of select="$DMAV_Dienstbarkeitsgrenzen_V1_0/ili:transfer/ili:datasection/*"/>

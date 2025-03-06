@@ -1,6 +1,10 @@
 package ch.so.agi.dmav;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -11,6 +15,8 @@ import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import javax.xml.transform.stream.StreamSource;
 
@@ -36,7 +42,7 @@ public class Merger {
     {{
          put("DMAVSUP_UntereinheitGrundbuch_V1_0", "DMAVSUP_UntereinheitGrundbuch_V1_0");
          put("DMAV_Toleranzstufen_V1_0", "DMAV_Toleranzstufen_V1_0");
-         put("DMAV_PLZ_Ortschaft_V1_0", "DMAV_PLZ_Ortschaft_V1_0");
+         put("OfficialIndexOfLocalities_V1_0", "OfficialIndexOfLocalities_V1_0");
          put("DMAV_HoheitsgrenzenLV_V1_0", "DMAV_HoheitsgrenzenLV_V1_0");
          put("DMAV_HoheitsgrenzenAV_V1_0", "DMAV_HoheitsgrenzenAV_V1_0");
          put("FixpunkteLV_V1_0_LFP", "FixpunkteLV_V1_0");
@@ -49,7 +55,7 @@ public class Merger {
          put("DMAV_Bodenbedeckung_V1_0","DMAV_Bodenbedeckung_V1_0");
          put("DMAV_Rohrleitungen_V1_0","DMAV_Rohrleitungen_V1_0");
          put("DMAV_Grundstuecke_V1_0","DMAV_Grundstuecke_V1_0");
-         put("DMAV_FixpunkteAVKategorie2_V1_0","DMAV_FixpunkteAVKategorie2_V1_0");
+         put("KGKCGC_FPDS2_V1_1","KGKCGC_FPDS2_V1_1");
          put("DMAV_DauerndeBodenverschiebungen_V1_0","DMAV_DauerndeBodenverschiebungen_V1_0");
     }};
 
@@ -77,13 +83,12 @@ public class Merger {
         Path tmpdir = null;        
         try {
             tmpdir = Files.createTempDirectory("dmav_");
+            //tmpdir = Paths.get("/Users/stefan/tmp/merger");
             System.out.println("tmpdir: " + tmpdir);
             
             // Leere (empty baskets) XTF laden, damit jedes
             // Thema (Modell) vorhanden ist. Damit stimmt mein
             // statischer ilimodels-Header.
-            // Eigentlich distinct values(). Ist aber keine Problem. Wird
-            // einfach übeschrieben (sprich 2x aus Ressourcen kopiert).
             for (String model : keysModels.keySet()) {
                 loadAndRenameResource(model, tmpdir, fosnr);
             }
@@ -95,26 +100,47 @@ public class Merger {
                 System.out.println("key: " +key);
                 System.out.println("value: " +value);
                 
-                
                 if (value.startsWith("http")) {
                     String fileURL = value;
-                    Path targetPath = tmpdir.resolve(key+"."+fosnr+".xtf");
-                    
-                    try (InputStream in = new URL(fileURL).openStream()) {
-                        Files.copy(in, targetPath, StandardCopyOption.REPLACE_EXISTING);
-                    }
+                    Path finalTargetPath = tmpdir.resolve(key+"."+fosnr+".xtf");
+
+                    if (fileURL.endsWith(".zip")) {
+                        URL url = new URL(fileURL);
+                        String fileName = Paths.get(url.getPath()).getFileName().toString();
+                        
+                        Path zipTargetPath = tmpdir.resolve(fileName);
+
+                        try (InputStream in = url.openStream()) {
+                            Files.copy(in, zipTargetPath, StandardCopyOption.REPLACE_EXISTING);
+                            getXtfFromZip(zipTargetPath, finalTargetPath);
+                        }
+                        
+                        if (!finalTargetPath.toFile().exists()) {
+                            System.err.println(key + ": No XTF file found in ZIP file.");
+                        }
+                    } else {
+                        try (InputStream in = new URL(fileURL).openStream()) {
+                            Files.copy(in, finalTargetPath, StandardCopyOption.REPLACE_EXISTING);
+                        }
+                    }                    
                 } else {
                     Path xtfFile = Paths.get(tmpdir.toAbsolutePath().toString(), key+"."+fosnr+".xtf");
-                    System.out.println("xtfFile: " + xtfFile);
-                    Files.copy(Paths.get(value), xtfFile, StandardCopyOption.REPLACE_EXISTING);                    
+                    if (value.endsWith(".zip")) {
+                        getXtfFromZip(Paths.get(value), xtfFile);
+                        if (!xtfFile.toFile().exists()) {
+                            System.err.println(key + ": No XTF file found in ZIP file.");
+                        }
+                    } else {
+                        Files.copy(Paths.get(value), xtfFile, StandardCopyOption.REPLACE_EXISTING);                                            
+                    }
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
-                
-        // XML-Skeletion und XSL-Tranformation aus Resourcen
+                        
+        // XML-Skeleton und XSL-Tranformation aus Resourcen
         // laden.
         Path xslFile = null;
         Path inputXmlFile = null;
@@ -127,6 +153,12 @@ public class Merger {
             return false;
         }
         
+//        try {
+//            Thread.sleep(60000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+
         // XSL-Transformation durchführen
         Processor proc = new Processor(false);
         XsltCompiler comp = proc.newXsltCompiler();
@@ -171,9 +203,44 @@ public class Merger {
             String renamedFileName = resourceFileName.replace("empty", replacement);
 
             Path targetFilePath = targetDir.resolve(renamedFileName);
-
             Files.copy(resourceStream, targetFilePath, StandardCopyOption.REPLACE_EXISTING);
         }
+    }
+    
+    private static void getXtfFromZip(Path zipFile, Path xtfFile) throws IOException {
+        Path tmpdir = Files.createTempDirectory("dmav_zip_");
+        ZipInputStream zis = new ZipInputStream(Files.newInputStream(zipFile));
+        ZipEntry zentry;
+        while ((zentry = zis.getNextEntry()) != null) {                                
+            File outputFile = new File(tmpdir.toFile().getAbsolutePath(), zentry.getName());
+            
+            if (zentry.isDirectory()) {
+                outputFile.mkdirs();
+            } else {
+                outputFile.getParentFile().mkdirs();
+                try (FileOutputStream fos = new FileOutputStream(outputFile);
+                        BufferedOutputStream bos = new BufferedOutputStream(fos)) {
+
+                    byte[] buffer = new byte[4096];
+                    int bytesRead;
+
+                    while ((bytesRead = zis.read(buffer)) != -1) {
+                        bos.write(buffer, 0, bytesRead);
+                    }
+                    
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    throw new IOException("Could not store file " + zipFile.getFileName().toString() + ". Please try again!");
+                }
+                if (outputFile.toString().toLowerCase().endsWith(".xtf")) {
+                    Files.copy(outputFile.toPath(), xtfFile, StandardCopyOption.REPLACE_EXISTING);                                  
+                    break;
+                }
+            }
+            zis.closeEntry();
+        }
+        zis.close();
+   
     }
 
 }

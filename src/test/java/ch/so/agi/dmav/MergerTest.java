@@ -9,6 +9,7 @@ import org.junit.jupiter.api.io.TempDir;
 import ch.ehi.basics.settings.Settings;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
+import okio.Buffer;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -32,20 +33,60 @@ public class MergerTest {
         mockWebServer.shutdown();
     }
 
-    //@Test
-    public void mergeMultipleExternalZipFilesOk(@TempDir Path tempDir) throws IOException {
-        // Prepare
-        // todo
-        //Path myTempDir = Path.of("/Users/stefan/tmp/");
-
-        
+    // Lokale Zip-Datei
+    @Test
+    public void mergeLocalZipFileOk(@TempDir Path tempDir) throws IOException {
         // Run test
         Merger merger = new Merger();
-        boolean ret = merger.run(Paths.get("src/test/data/merger/myconfig_web_multiple_zip.ini"), "449", tempDir);
+        boolean ret = merger.run(Paths.get("src/test/data/merger/myconfig_local_zip.ini"), "449", tempDir);
 
+        // Validate result
+        assertTrue(ret);
+
+        Path xtfFile = tempDir.resolve("DMAV.449.xtf");
+        Settings settings = new Settings();
+        Path logFile = tempDir.resolve("ilivaliator.log").toAbsolutePath();
+        settings.setValue(Validator.SETTING_LOGFILE, logFile.toString());
         
+        boolean valid = Validator.runValidation(xtfFile.toString(), settings);
+        assertFalse(valid);
+
+        String content = Files.readString(logFile);
+        assertTrue(content.contains("114 objects in CLASS DMAV_FixpunkteAVKategorie3_V1_0.FixpunkteAVKategorie3.LFP3"));
+        assertTrue(content.contains("1 objects in CLASS OfficialIndexOfLocalities_V1_0.OfficialIndexOfLocalities.Locality"));
+        assertTrue(content.contains("Error: line 2982: OfficialIndexOfLocalities_V1_0.OfficialIndexOfLocalities.Locality: tid BB74A1B6-3A4F-4A76-9B6C-466F10630ABA: ZIP should associate 1 to * target objects (instead of 0)"));
+    }
+    
+    // Externe Zip-Datei
+    @Test
+    public void mergeExternalZipFileOk(@TempDir Path tempDir) throws IOException {
+        // Prepare
+        byte[] fileContent = Files.readAllBytes(Paths.get("src/test/data/merger/fixpunkte_v1_1_SO_lv95.zip"));
+
+        mockWebServer.enqueue(new MockResponse()
+                .setBody(new Buffer().write(fileContent)) 
+                .addHeader("Content-Type", "application/zip")
+                .setResponseCode(200));
+
+        // Run test
+        Merger merger = new Merger();
+        boolean ret = merger.run(Paths.get("src/test/data/merger/myconfig_web_zip.ini"), "449", tempDir);
+
+        // Validate result
+        assertTrue(ret);
+
+        Path xtfFile = tempDir.resolve("DMAV.449.xtf");
+        Settings settings = new Settings();
+        Path logFile = tempDir.resolve("ilivaliator.log").toAbsolutePath();
+        settings.setValue(Validator.SETTING_LOGFILE, logFile.toString());
         
-        // Validate
+        boolean valid = Validator.runValidation(xtfFile.toString(), settings);
+        assertTrue(valid);
+
+        String content = Files.readString(logFile);
+        assertTrue(content.contains("114 objects in CLASS DMAV_FixpunkteAVKategorie3_V1_0.FixpunkteAVKategorie3.LFP3"));
+        assertTrue(content.contains("3890 objects in CLASS KGKCGC_FPDS2_V1_1.FPDS2.FixpunktVersion"));
+        assertTrue(content.contains("548 objects in CLASS KGKCGC_FPDS2_V1_1.FPDS2.Fixpunkt"));
     }
 
     
