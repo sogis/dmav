@@ -54,7 +54,7 @@ public class MergerTest {
         String content = Files.readString(logFile);
         assertTrue(content.contains("114 objects in CLASS DMAV_FixpunkteAVKategorie3_V1_0.FixpunkteAVKategorie3.LFP3"));
         assertTrue(content.contains("1 objects in CLASS OfficialIndexOfLocalities_V1_0.OfficialIndexOfLocalities.Locality"));
-        assertTrue(content.contains("Error: line 2982: OfficialIndexOfLocalities_V1_0.OfficialIndexOfLocalities.Locality: tid BB74A1B6-3A4F-4A76-9B6C-466F10630ABA: ZIP should associate 1 to * target objects (instead of 0)"));
+        assertTrue(content.contains("OfficialIndexOfLocalities_V1_0.OfficialIndexOfLocalities.Locality: tid BB74A1B6-3A4F-4A76-9B6C-466F10630ABA: ZIP should associate 1 to * target objects (instead of 0)"));
     }
     
     // Externe Zip-Datei

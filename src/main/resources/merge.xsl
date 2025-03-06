@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <xsl:stylesheet version="3.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ili="http://www.interlis.ch/xtf/2.4/INTERLIS" xmlns:FixpunkteLV_V1_0="http://www.interlis.ch/xtf/2.4/FixpunkteLV_V1_0">
 
-    <xsl:output indent="yes"/>
+    <xsl:output indent="no"/>
     <xsl:strip-space elements="*"/>
 
     <xsl:param name="fosnr" select="'XXXX'"/>
