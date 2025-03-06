@@ -18,6 +18,9 @@ public class SplitterTest {
     @Test
     public void splitOk(@TempDir Path tempDir) throws IOException {
         // Run test
+        
+        tempDir = Paths.get("/Users/stefan/tmp/splitter/");
+        
         Splitter splitter =  new Splitter();
         boolean ret = splitter.run(Paths.get("src/test/data/splitter/DMAV.449.xtf"), "449", tempDir);
         
@@ -25,7 +28,7 @@ public class SplitterTest {
         assertTrue(ret);
         
         {
-            Path xtfFile = tempDir.resolve("DMAV_PLZ_Ortschaft_V1_0.449.xtf");
+            Path xtfFile = tempDir.resolve("DMAV_FixpunkteAVKategorie3_V1_0.449.xtf");
             Settings settings = new Settings();
             Path logFile = tempDir.resolve("ilivaliator.log").toAbsolutePath();
             settings.setValue(Validator.SETTING_LOGFILE, logFile.toString());
@@ -34,12 +37,12 @@ public class SplitterTest {
             assertTrue(valid);
             
             String content = Files.readString(logFile);
-            assertFalse(content.contains("3 objects in CLASS DMAV_FixpunkteAVKategorie2_V1_0.FixpunkteAVKategorie2.LFP2"));
-            assertTrue(content.contains("3 objects in CLASS DMAV_PLZ_Ortschaft_V1_0.PLZ_Ortschaft.PLZ"));
+            assertFalse(content.contains("1 objects in CLASS DMAV_HoheitsgrenzenAV_V1_0.HoheitsgrenzenAV.Gemeinde"));
+            assertTrue(content.contains("114 objects in CLASS DMAV_FixpunkteAVKategorie3_V1_0.FixpunkteAVKategorie3.LFP3"));
         }
 
         {
-            Path xtfFile = tempDir.resolve("DMAV_FixpunkteAVKategorie2_V1_0.449.xtf");
+            Path xtfFile = tempDir.resolve("DMAV_HoheitsgrenzenAV_V1_0.449.xtf");
             Settings settings = new Settings();
             Path logFile = tempDir.resolve("ilivaliator.log").toAbsolutePath();
             settings.setValue(Validator.SETTING_LOGFILE, logFile.toString());
@@ -48,8 +51,8 @@ public class SplitterTest {
             assertTrue(valid);
             
             String content = Files.readString(logFile);
-            assertTrue(content.contains("3 objects in CLASS DMAV_FixpunkteAVKategorie2_V1_0.FixpunkteAVKategorie2.LFP2"));
-            assertFalse(content.contains("3 objects in CLASS DMAV_PLZ_Ortschaft_V1_0.PLZ_Ortschaft.PLZ"));
+            assertFalse(content.contains("114 objects in CLASS DMAV_FixpunkteAVKategorie3_V1_0.FixpunkteAVKategorie3.LFP3"));
+            assertTrue(content.contains("1 objects in CLASS DMAV_HoheitsgrenzenAV_V1_0.HoheitsgrenzenAV.Gemeinde"));
         }
 
     }
