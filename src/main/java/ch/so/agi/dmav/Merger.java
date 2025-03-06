@@ -84,7 +84,6 @@ public class Merger {
         try {
             tmpdir = Files.createTempDirectory("dmav_");
             //tmpdir = Paths.get("/Users/stefan/tmp/merger");
-            System.out.println("tmpdir: " + tmpdir);
             
             // Leere (empty baskets) XTF laden, damit jedes
             // Thema (Modell) vorhanden ist. Damit stimmt mein

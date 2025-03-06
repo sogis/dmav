@@ -81,7 +81,7 @@ public class MergerTest {
         settings.setValue(Validator.SETTING_LOGFILE, logFile.toString());
         
         boolean valid = Validator.runValidation(xtfFile.toString(), settings);
-        assertFalse(valid);
+        assertTrue(valid);
 
         String content = Files.readString(logFile);
         assertTrue(content.contains("114 objects in CLASS DMAV_FixpunkteAVKategorie3_V1_0.FixpunkteAVKategorie3.LFP3"));
@@ -106,7 +106,7 @@ public class MergerTest {
         settings.setValue(Validator.SETTING_LOGFILE, logFile.toString());
         
         boolean valid = Validator.runValidation(xtfFile.toString(), settings);
-        assertFalse(valid);
+        assertTrue(valid);
 
         String content = Files.readString(logFile);
         assertTrue(content.contains("114 objects in CLASS DMAV_FixpunkteAVKategorie3_V1_0.FixpunkteAVKategorie3.LFP3"));
@@ -130,7 +130,7 @@ public class MergerTest {
         settings.setValue(Validator.SETTING_LOGFILE, logFile.toString());
         
         boolean valid = Validator.runValidation(xtfFile.toString(), settings);
-        assertFalse(valid);
+        assertTrue(valid);
         
         String content = Files.readString(logFile);
         assertTrue(content.contains("114 objects in CLASS DMAV_FixpunkteAVKategorie3_V1_0.FixpunkteAVKategorie3.LFP3"));
@@ -152,7 +152,7 @@ public class MergerTest {
         boolean ret = merger.run(Paths.get("src/test/data/merger/myconfig_web.ini"), "449", tempDir);
 
         // Validate result
-        assertFalse(ret);
+        assertTrue(ret);
         
         Path xtfFile = tempDir.resolve("DMAV.449.xtf");
         Settings settings = new Settings();
@@ -160,7 +160,7 @@ public class MergerTest {
         settings.setValue(Validator.SETTING_LOGFILE, logFile.toString());
         
         boolean valid = Validator.runValidation(xtfFile.toString(), settings);
-        assertFalse(valid);
+        assertTrue(valid);
         
         String content = Files.readString(logFile);
         assertTrue(content.contains("114 objects in CLASS DMAV_FixpunkteAVKategorie3_V1_0.FixpunkteAVKategorie3.LFP3"));
