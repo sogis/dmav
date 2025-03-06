@@ -18,9 +18,7 @@ public class SplitterTest {
     @Test
     public void splitOk(@TempDir Path tempDir) throws IOException {
         // Run test
-        
-        tempDir = Paths.get("/Users/stefan/tmp/splitter/");
-        
+        //tempDir = Paths.get("/Users/stefan/tmp/splitter/");
         Splitter splitter =  new Splitter();
         boolean ret = splitter.run(Paths.get("src/test/data/splitter/DMAV.449.xtf"), "449", tempDir);
         
