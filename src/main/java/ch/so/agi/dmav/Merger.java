@@ -97,8 +97,8 @@ public class Merger {
                 String key = entry.getKey();
                 String value = entry.getValue();
                 
-                System.out.println("key: " +key);
-                System.out.println("value: " +value);
+//                System.out.println("key: " +key);
+//                System.out.println("value: " +value);
                 
                 if (value.startsWith("http")) {
                     String fileURL = value;
