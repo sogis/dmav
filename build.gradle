@@ -9,7 +9,7 @@ plugins {
 
 group = 'io.github.sogis'
 
-version '0.0.8'+System.getProperty('release','-SNAPSHOT')
+version '0.0.9'+System.getProperty('release','-SNAPSHOT')
 
 def myArtifactId = "dmav"
 
@@ -78,17 +78,17 @@ publishing {
 
             pom {
                 name = "dmav"
-                url = "https://github.com/edigonzales/dmav"
+                url = "https://github.com/sogis/dmav"
                 description = "dmav"
                 scm {
-                    connection = "scm:git:https@github.com/edigonzales/dmav"
-                    developerConnection = "scm:git:https@github.com/edigonzales/dmav"
-                    url = "https://github.com/edigonzales/dmav"
+                    connection = "scm:git:https@github.com/sogis/dmav"
+                    developerConnection = "scm:git:https@github.com/sogis/dmav"
+                    url = "https://github.com/sogis/dmav"
                 }
                 licenses {
                     license {
                         name = "MIT"
-                        url = "https://github.com/edigonzales/dmav/blob/master/LICENSE"
+                        url = "https://github.com/sogis/dmav/blob/master/LICENSE"
                     }
                 }
                 developers {
@@ -128,12 +128,12 @@ jreleaser {
         website = 'https://agi.so.ch'
         authors = ['edigonzales']
         license = 'MIT'
-        docsUrl = 'https://github.com/edigonzales/dmav'
+        docsUrl = 'https://github.com/sogis/dmav'
         copyright = '2024 Stefan Ziegler'
     }
     release {
         github {
-            repoOwner = 'edigonzales'
+            repoOwner = 'sogis'
             overwrite = true
             apiEndpoint = 'https://api.github.com'
         }
