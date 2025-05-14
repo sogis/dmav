@@ -38,7 +38,7 @@ DMAV_FixpunkteAVKategorie3_V1_0=src/test/data/merger/DMAV_FixpunkteAVKategorie3_
 KGKCGC_FPDS2_V1_1=https://geodienste.ch/downloads/interlis/fixpunkte/SO/fixpunkte_v1_1_SO_lv95.zip
 ```
 
-Die Keys müssen dem Datenmodellnamen entsprechen. Jedes Modell kann nur einmal vorkommen. Die Values sind der Pfad der Einzeldatei. Entweder lokal oder als HTTP-Url. Die Datei darf _nicht_ gezippt sein. Der Platzhalter `${fosnr}` ist nicht zwingend notwendig.
+Die Keys müssen dem Datenmodellnamen entsprechen. Jedes Modell kann nur einmal vorkommen. Die Values sind der Pfad der Einzeldatei. Entweder lokal oder als HTTP-Url. Der Platzhalter `${fosnr}` ist nicht zwingend notwendig.
 
 Es wird die erste XTF-Datei innerhalb der ZIP-Datei verwendet.
 
